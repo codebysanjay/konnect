@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:konnect/screens/login.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -8,81 +8,191 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  // ignore: unused_field
-  String _email;
-  // ignore: unused_field
-  String _password;
+  TextEditingController userNameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passWordTextEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(
-              height: 100,
-            ),
-            Text(
-              'SIGN UP\nPAGE',
-              style: GoogleFonts.poppins(
-                color: Colors.deepPurple,
-                fontSize: 50,
-                fontWeight: FontWeight.w500,
-                height: 1,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Email", border: OutlineInputBorder()),
-                onChanged: (value) {
-                  setState(() {
-                    _email = value;
-                  });
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "PassWord", border: OutlineInputBorder()),
-                onChanged: (value) {
-                  setState(() {
-                    _password = value;
-                  });
-                },
-              ),
-            ),
-            FlatButton(
-              color: Colors.blue,
-              onPressed: () {},
-              child: Text(
-                "SIGN UP",
-                style: GoogleFonts.roboto(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff101421),
+        leading: Icon(FontAwesomeIcons.circleNotch),
+        title: Text(
+          'konnect',
+          style: GoogleFonts.ubuntu(fontSize: 25),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          color: Color(0xff121726),
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 10, top: 20),
+                child: Icon(
+                  FontAwesomeIcons.circleNotch,
+                  size: 60,
                 ),
               ),
-            ),
-            FlatButton(
-              color: Colors.blue,
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
-              },
-              child: Text(
-                "SIGN IN",
-                style: GoogleFonts.roboto(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+              Text(
+                'konnect',
+                style: GoogleFonts.ubuntu(
+                  fontSize: 35,
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 100,
+              ),
+              TextField(
+                controller: userNameTextEditingController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    gapPadding: 2,
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: Colors.amber,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Username',
+                  labelText: 'Username',
+                  prefixIcon: Icon(FontAwesomeIcons.user),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextField(
+                controller: emailTextEditingController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    gapPadding: 2,
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: Colors.amber,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'E-mail',
+                  labelText: 'E-Mail',
+                  prefixIcon: Icon(FontAwesomeIcons.envelope),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextField(
+                controller: passWordTextEditingController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    gapPadding: 2,
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: Colors.amber,
+                      width: 2,
+                    ),
+                  ),
+                  prefixIcon: Icon(FontAwesomeIcons.lock),
+                  hintText: 'Password',
+                  labelText: 'Password',
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              FlatButton(
+                padding: EdgeInsets.all(0),
+                onPressed: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xff33b3d6),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 3,
+                    horizontal: 20,
+                  ),
+                  child: Text(
+                    'SIGN UP',
+                    style: GoogleFonts.poppins(
+                      fontSize: 28,
+                      color: Color(0xff121726),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              FlatButton(
+                padding: EdgeInsets.all(0),
+                onPressed: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xff33b3d6),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 15,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.google,
+                        size: 20,
+                        color: Color(0xff121726),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'SignUp with Google',
+                        style: GoogleFonts.roboto(
+                          fontSize: 20,
+                          color: Color(0xff121726),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              FlatButton(
+                padding: EdgeInsets.all(0),
+                onPressed: () {},
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already have an account',
+                      style: GoogleFonts.poppins(
+                        color: Color(0xff33b3d6),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Sign-In?',
+                      style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        color: Color(0xff33b3d6),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
