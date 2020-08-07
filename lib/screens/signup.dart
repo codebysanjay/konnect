@@ -72,7 +72,6 @@ class _SignUpState extends State<SignUp> {
                     gapPadding: 2,
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide(
-                      color: Colors.amber,
                       width: 2,
                     ),
                   ),
