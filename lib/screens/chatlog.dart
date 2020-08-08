@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:konnect/screens/login.dart';
+import 'package:konnect/screens/signout.dart';
 import 'package:konnect/sevices/auth.dart';
 
 class Welcome extends StatelessWidget {
@@ -23,8 +24,8 @@ class Welcome extends StatelessWidget {
               icon: Icon(FontAwesomeIcons.windowClose),
               onPressed: () {
                 authMethods.SignOut();
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => SignedOut()));
               }),
         ],
       ),
