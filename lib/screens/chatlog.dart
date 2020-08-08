@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:konnect/screens/login.dart';
+import 'package:konnect/sevices/auth.dart';
 
 class Welcome extends StatelessWidget {
+  AuthMethods authMethods = AuthMethods();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +22,9 @@ class Welcome extends StatelessWidget {
               padding: EdgeInsets.all(0),
               icon: Icon(FontAwesomeIcons.windowClose),
               onPressed: () {
-                print('pressed');
+                authMethods.SignOut();
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Login()));
               }),
         ],
       ),
