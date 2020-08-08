@@ -102,6 +102,7 @@ class _LoginState extends State<Login> {
                             height: 15,
                           ),
                           TextFormField(
+                            obscureText: true,
                             validator: (value) => value.length > 5
                                 ? null
                                 : "Password must be atleast 6 charachers",

@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Color(0xff121726),
+        applyElevationOverlayColor: true,
         accentColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,

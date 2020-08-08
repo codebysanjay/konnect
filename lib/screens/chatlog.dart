@@ -29,6 +29,16 @@ class Welcome extends StatelessWidget {
               }),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 10,
+        backgroundColor: Colors.blueAccent,
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+          size: 35,
+          color: Color(0xff121726),
+        ),
+      ),
       body: Center(
         child: Text("Welcome"),
       ),
