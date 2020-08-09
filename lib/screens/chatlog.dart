@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:konnect/screens/login.dart';
+import 'package:konnect/screens/search.dart';
 import 'package:konnect/screens/signout.dart';
 import 'package:konnect/sevices/auth.dart';
 
+// ignore: must_be_immutable
 class Welcome extends StatelessWidget {
   AuthMethods authMethods = AuthMethods();
   @override
@@ -32,7 +33,10 @@ class Welcome extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         backgroundColor: Colors.blueAccent,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SearchScreen()));
+        },
         child: Icon(
           Icons.add,
           size: 35,

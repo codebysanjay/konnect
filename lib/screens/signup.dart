@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:konnect/screens/chatlog.dart';
 import 'package:konnect/screens/login.dart';
 import 'package:konnect/sevices/auth.dart';
+import 'package:konnect/sevices/database.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _SignUpState extends State<SignUp> {
   bool isLoading = false;
   final formKey = GlobalKey<FormState>();
   AuthMethods authMethods = AuthMethods();
+  DataBaseMethod dataBaseMethod = DataBaseMethod();
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passWordTextEditingController = TextEditingController();
@@ -23,11 +25,19 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         isLoading = true;
       });
+
       authMethods
           .signUpWithEmailAndPassword(emailTextEditingController.text,
               passWordTextEditingController.text)
-          .then((value) => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Welcome())));
+          .then((value) {
+        Map<String, String> userInfoMap = {
+          "name": userNameTextEditingController.text,
+          "email": emailTextEditingController.text
+        };
+        dataBaseMethod.uploadUserInfo(userInfoMap);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Welcome()));
+      });
     }
   }
 
