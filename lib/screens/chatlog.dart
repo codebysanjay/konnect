@@ -4,10 +4,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:konnect/screens/search.dart';
 import 'package:konnect/screens/signout.dart';
 import 'package:konnect/sevices/auth.dart';
+import 'package:konnect/sevices/constants.dart';
+import 'package:konnect/sevices/helper.dart';
 
 // ignore: must_be_immutable
-class Welcome extends StatelessWidget {
+class Welcome extends StatefulWidget {
+  @override
+  _WelcomeState createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> {
   AuthMethods authMethods = AuthMethods();
+  @override
+  void initState() {
+    getUserInfo();
+    super.initState();
+  }
+
+  getUserInfo() async {
+    Constants.myName = await HelperFunctions.getUserName();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +61,7 @@ class Welcome extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text("Welcome"),
+        child: Text(Constants.myName),
       ),
     );
   }

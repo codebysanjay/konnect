@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:konnect/models/conversation.dart';
+import 'package:konnect/sevices/constants.dart';
 import 'package:konnect/sevices/database.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -23,10 +25,6 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  // chatRoom(String userName) {
-  //   List<String> users = [userName,myName];
-  //   dataBaseMethod.createChatRoom(chatroomId, chatRoomMap)
-  // }
   Widget searchList() {
     return searchSnapshot != null
         ? ListView.builder(
@@ -138,7 +136,9 @@ class SearchTile extends StatelessWidget {
             ],
           ),
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                chatRoom(context, username);
+              },
               child: Container(
                 margin: EdgeInsets.all(0),
                 padding: EdgeInsets.all(0),
@@ -158,4 +158,25 @@ class SearchTile extends StatelessWidget {
       ),
     );
   }
+}
+
+getRoomId(String user1, String user2) {
+  if (user1.substring(0, 1).codeUnitAt(0) >
+      user2.substring(0, 1).codeUnitAt(0)) {
+    return "$user2\_$user1";
+  } else {
+    return "$user1\_$user2";
+  }
+}
+
+chatRoom(BuildContext context, String userName) {
+  String roomId = getRoomId(userName, Constants.myName);
+  List<String> users = [userName, Constants.myName];
+  Map<String, dynamic> chatRoomMap = {
+    "users": users,
+    "chatroomid": roomId,
+  };
+  DataBaseMethod().createChatRoom(roomId, chatRoomMap);
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => ConversationScreen()));
 }

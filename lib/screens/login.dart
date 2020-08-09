@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:konnect/screens/chatlog.dart';
 import 'package:konnect/screens/signup.dart';
 import 'package:konnect/sevices/auth.dart';
+import 'package:konnect/sevices/database.dart';
+import 'package:konnect/sevices/helper.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,6 +16,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   AuthMethods authMethods = AuthMethods();
   final formKeys = GlobalKey<FormState>();
+  DataBaseMethod dataBaseMethod = DataBaseMethod();
+  QuerySnapshot usernamesnap;
   bool isLoading = false;
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passWordTextEditingController = TextEditingController();
@@ -23,11 +28,16 @@ class _LoginState extends State<Login> {
       });
       authMethods
           .signInWithEmailAndPassword(
-            emailTextEditingController.text,
-            passWordTextEditingController.text,
-          )
-          .then((value) => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Welcome())));
+        emailTextEditingController.text,
+        passWordTextEditingController.text,
+      )
+          .then((value) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Welcome()));
+        HelperFunctions.saveUserData(true);
+        HelperFunctions.saveUserEmail(emailTextEditingController.text);
+        HelperFunctions.saveUserName(usernamesnap.documents[0].data["name"]);
+      });
     }
   }
 

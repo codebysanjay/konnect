@@ -5,6 +5,7 @@ import 'package:konnect/screens/chatlog.dart';
 import 'package:konnect/screens/login.dart';
 import 'package:konnect/sevices/auth.dart';
 import 'package:konnect/sevices/database.dart';
+import 'package:konnect/sevices/helper.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -22,6 +23,9 @@ class _SignUpState extends State<SignUp> {
 
   signMeUp() {
     if (formKey.currentState.validate()) {
+      HelperFunctions.saveUserData(true);
+      HelperFunctions.saveUserEmail(emailTextEditingController.text);
+      HelperFunctions.saveUserName(userNameTextEditingController.text);
       setState(() {
         isLoading = true;
       });
