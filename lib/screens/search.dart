@@ -170,13 +170,17 @@ getRoomId(String user1, String user2) {
 }
 
 chatRoom(BuildContext context, String userName) {
-  String roomId = getRoomId(userName, Constants.myName);
-  List<String> users = [userName, Constants.myName];
-  Map<String, dynamic> chatRoomMap = {
-    "users": users,
-    "chatroomid": roomId,
-  };
-  DataBaseMethod().createChatRoom(roomId, chatRoomMap);
-  Navigator.push(
-      context, MaterialPageRoute(builder: (context) => ConversationScreen()));
+  if (userName == Constants.myName) {
+    String roomId = getRoomId(userName, Constants.myName);
+    List<String> users = [userName, Constants.myName];
+    Map<String, dynamic> chatRoomMap = {
+      "users": users,
+      "chatroomid": roomId,
+    };
+    DataBaseMethod().createChatRoom(roomId, chatRoomMap);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ConversationScreen()));
+  } else {
+    print("Sorry ");
+  }
 }

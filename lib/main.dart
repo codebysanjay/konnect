@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:konnect/screens/chatlog.dart';
 import 'package:konnect/screens/login.dart';
+import 'package:konnect/sevices/helper.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool userlogged = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getLoginState() async {
+    await HelperFunctions.getUserData().then((value) {
+      setState(() {
+        userlogged = true;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +37,19 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: userlogged != null ? userlogged ? Welcome() : Login() : Waiting(),
     );
+  }
+}
+
+class Waiting extends StatefulWidget {
+  @override
+  _WaitingState createState() => _WaitingState();
+}
+
+class _WaitingState extends State<Waiting> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
