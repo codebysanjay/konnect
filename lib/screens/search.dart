@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:konnect/models/conversation.dart';
 import 'package:konnect/sevices/constants.dart';
 import 'package:konnect/sevices/database.dart';
+import 'package:konnect/sevices/helper.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchEditingController = TextEditingController();
   DataBaseMethod dataBaseMethod = DataBaseMethod();
   QuerySnapshot searchSnapshot;
+  String myUserName;
   initiateSearch() {
     dataBaseMethod
         .getUserByUserName(searchEditingController.text)
@@ -40,6 +42,25 @@ class _SearchScreenState extends State<SearchScreen> {
             },
           )
         : Text("No Data Found");
+  }
+
+  getRoomId(String user1, String user2) {
+    if (user1.substring(0, 1).codeUnitAt(0) >
+        user2.substring(0, 1).codeUnitAt(0)) {
+      return "$user2\_$user1";
+    } else {
+      return "$user1\_$user2";
+    }
+  }
+
+  @override
+  void initState() {
+    getUserInfo();
+    super.initState();
+  }
+
+  getUserInfo() async {
+    myUserName = await HelperFunctions.getUserName();
   }
 
   @override
@@ -158,21 +179,13 @@ class SearchTile extends StatelessWidget {
       ),
     );
   }
-}
 
-getRoomId(String user1, String user2) {
-  if (user1.substring(0, 1).codeUnitAt(0) >
-      user2.substring(0, 1).codeUnitAt(0)) {
-    return "$user2\_$user1";
-  } else {
-    return "$user1\_$user2";
-  }
-}
-
-chatRoom(BuildContext context, String userName) {
-  if (userName == Constants.myName) {
-    String roomId = getRoomId(userName, Constants.myName);
+  chatRoom(BuildContext context, String userName) {
     List<String> users = [userName, Constants.myName];
+    print(userName);
+    print(Constants.myName);
+    String roomId = getRoomId(userName, Constants.myName);
+
     Map<String, dynamic> chatRoomMap = {
       "users": users,
       "chatroomid": roomId,
@@ -180,7 +193,5 @@ chatRoom(BuildContext context, String userName) {
     DataBaseMethod().createChatRoom(roomId, chatRoomMap);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => ConversationScreen()));
-  } else {
-    print("Sorry ");
   }
 }

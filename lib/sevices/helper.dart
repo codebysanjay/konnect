@@ -23,16 +23,16 @@ class HelperFunctions {
   // Getting data from shared preference
   static Future<bool> getUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getBool(userloginKey);
+    return preferences.getBool(userloginKey);
   }
 
   static Future<String> getUserName() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(userNameKey);
+    return preferences.getString(userNameKey);
   }
 
   static Future<String> getUserEmail() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(userEmail);
+    return preferences.getString(userEmail);
   }
 }

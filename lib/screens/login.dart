@@ -26,6 +26,9 @@ class _LoginState extends State<Login> {
       setState(() {
         isLoading = true;
       });
+      HelperFunctions.saveUserData(true);
+      HelperFunctions.saveUserEmail(emailTextEditingController.text);
+      HelperFunctions.saveUserName(usernamesnap.documents[0].data["name"]);
       authMethods
           .signInWithEmailAndPassword(
         emailTextEditingController.text,
@@ -34,9 +37,6 @@ class _LoginState extends State<Login> {
           .then((value) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Welcome()));
-        HelperFunctions.saveUserData(true);
-        HelperFunctions.saveUserEmail(emailTextEditingController.text);
-        HelperFunctions.saveUserName(usernamesnap.documents[0].data["name"]);
       });
     }
   }

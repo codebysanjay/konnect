@@ -16,7 +16,7 @@ class _MyAppState extends State<MyApp> {
   bool userlogged = false;
   @override
   void initState() {
-    // TODO: implement initState
+    getLoginState();
     super.initState();
   }
 
@@ -37,19 +37,7 @@ class _MyAppState extends State<MyApp> {
         accentColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: userlogged != null ? userlogged ? Welcome() : Login() : Waiting(),
+      home: userlogged ? Welcome() : Login(),
     );
-  }
-}
-
-class Waiting extends StatefulWidget {
-  @override
-  _WaitingState createState() => _WaitingState();
-}
-
-class _WaitingState extends State<Waiting> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
