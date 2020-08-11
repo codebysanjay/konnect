@@ -27,16 +27,16 @@ class AuthMethods {
     } catch (e) {
       print(e);
     }
-    Future resetPass(String email) async {
-      try {
-        return await _auth.sendPasswordResetEmail(email: email);
-      } catch (e) {
-        print(e);
-      }
-    }
+    // Future resetPass(String email) async {
+    //   try {
+    //     return await _auth.sendPasswordResetEmail(email: email);
+    //   } catch (e) {
+    //     print(e);
+    //   }
+    // }
   }
 
-  Future SignOut() async {
+  Future signOut() async {
     try {
       return await _auth.signOut();
     } catch (e) {

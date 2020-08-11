@@ -23,9 +23,16 @@ class _SignUpState extends State<SignUp> {
 
   signMeUp() {
     if (formKey.currentState.validate()) {
-      HelperFunctions.saveUserData(true);
-      HelperFunctions.saveUserEmail(emailTextEditingController.text);
-      HelperFunctions.saveUserName(userNameTextEditingController.text);
+      Map<String, String> userInfoMap = {
+        "name": userNameTextEditingController.text,
+        "email": emailTextEditingController.text
+      };
+
+      HelperFunctions.saveUserEmailSharedPreference(
+          emailTextEditingController.text);
+      HelperFunctions.saveUserNameSharedPreference(
+          userNameTextEditingController.text);
+
       setState(() {
         isLoading = true;
       });
@@ -34,13 +41,10 @@ class _SignUpState extends State<SignUp> {
           .signUpWithEmailAndPassword(emailTextEditingController.text,
               passWordTextEditingController.text)
           .then((value) {
-        Map<String, String> userInfoMap = {
-          "name": userNameTextEditingController.text,
-          "email": emailTextEditingController.text
-        };
         dataBaseMethod.uploadUserInfo(userInfoMap);
+        HelperFunctions.saveUserLoggedInSharedPreference(true);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Welcome()));
+            context, MaterialPageRoute(builder: (context) => ChatRoom()));
       });
     }
   }

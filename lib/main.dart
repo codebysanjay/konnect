@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getLoginState() async {
-    await HelperFunctions.getUserData().then((value) {
+    await HelperFunctions.getUserLoggedInSharedPreference().then((value) {
       setState(() {
         userlogged = true;
       });
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
         accentColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: userlogged ? Welcome() : Login(),
+      home: userlogged ? ChatRoom() : Login(),
     );
   }
 }

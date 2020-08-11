@@ -23,20 +23,31 @@ class _LoginState extends State<Login> {
   TextEditingController passWordTextEditingController = TextEditingController();
   loginMe() {
     if (formKeys.currentState.validate()) {
+      HelperFunctions.saveUserEmailSharedPreference(
+          emailTextEditingController.text);
       setState(() {
         isLoading = true;
       });
-      HelperFunctions.saveUserData(true);
-      HelperFunctions.saveUserEmail(emailTextEditingController.text);
-      HelperFunctions.saveUserName(usernamesnap.documents[0].data["name"]);
+
+      dataBaseMethod
+          .getUserByUserEmail(emailTextEditingController.text)
+          .then((value) {
+        setState(() {
+          usernamesnap = value;
+        });
+
+        HelperFunctions.saveUserNameSharedPreference(
+            usernamesnap.documents[0].data["name"]);
+      });
       authMethods
           .signInWithEmailAndPassword(
         emailTextEditingController.text,
         passWordTextEditingController.text,
       )
           .then((value) {
+        HelperFunctions.saveUserLoggedInSharedPreference(true);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Welcome()));
+            context, MaterialPageRoute(builder: (context) => ChatRoom()));
       });
     }
   }

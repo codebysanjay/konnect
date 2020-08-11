@@ -8,12 +8,12 @@ import 'package:konnect/sevices/constants.dart';
 import 'package:konnect/sevices/helper.dart';
 
 // ignore: must_be_immutable
-class Welcome extends StatefulWidget {
+class ChatRoom extends StatefulWidget {
   @override
-  _WelcomeState createState() => _WelcomeState();
+  _ChatRoomState createState() => _ChatRoomState();
 }
 
-class _WelcomeState extends State<Welcome> {
+class _ChatRoomState extends State<ChatRoom> {
   AuthMethods authMethods = AuthMethods();
   @override
   void initState() {
@@ -22,8 +22,7 @@ class _WelcomeState extends State<Welcome> {
   }
 
   getUserInfo() async {
-    Constants.myName = await HelperFunctions.getUserName();
-    setState(() {});
+    Constants.myName = await HelperFunctions.getUserNameSharedPreference();
   }
 
   @override
@@ -42,7 +41,7 @@ class _WelcomeState extends State<Welcome> {
               padding: EdgeInsets.all(0),
               icon: Icon(FontAwesomeIcons.windowClose),
               onPressed: () {
-                authMethods.SignOut();
+                authMethods.signOut();
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => SignedOut()));
               }),
