@@ -23,6 +23,7 @@ class _WelcomeState extends State<Welcome> {
 
   getUserInfo() async {
     Constants.myName = await HelperFunctions.getUserName();
+    setState(() {});
   }
 
   @override
@@ -61,7 +62,7 @@ class _WelcomeState extends State<Welcome> {
         ),
       ),
       body: Center(
-        child: Text(Constants.myName),
+        child: Text("Hello"),
       ),
     );
   }
