@@ -26,11 +26,27 @@ class DataBaseMethod {
         .setData(chatRoomMap);
   }
 
-  getConversationMessgaes(String chatRoomId, messageMap) {
+  addConversationMessgaes(String chatRoomId, messageMap) {
     Firestore.instance
         .collection("chatroom")
         .document(chatRoomId)
         .collection("chats")
         .add(messageMap);
+  }
+
+  getConversationMessgaes(String chatRoomId) async {
+    return Firestore.instance
+        .collection("chatroom")
+        .document(chatRoomId)
+        .collection("chats")
+        .orderBy("time", descending: true)
+        .snapshots();
+  }
+
+  getChatRooms(String userName) async {
+    return await Firestore.instance
+        .collection("chatroom")
+        .where("users", arrayContains: userName)
+        .snapshots();
   }
 }
